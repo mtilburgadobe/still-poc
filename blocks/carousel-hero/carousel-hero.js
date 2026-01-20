@@ -1,6 +1,8 @@
 import { fetchPlaceholders } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+const AUTOPLAY_INTERVAL = 6000; // 6 seconds between slides (like still.de)
+
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel-hero');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
@@ -43,24 +45,84 @@ export function showSlide(block, slideIndex = 0) {
   });
 }
 
+/**
+ * Start autoplay for the carousel
+ * @param {HTMLElement} block - The carousel block element
+ */
+function startAutoplay(block) {
+  if (block.autoplayInterval) return; // Already running
+
+  block.autoplayInterval = setInterval(() => {
+    const currentSlide = parseInt(block.dataset.activeSlide, 10) || 0;
+    showSlide(block, currentSlide + 1);
+  }, AUTOPLAY_INTERVAL);
+}
+
+/**
+ * Stop autoplay for the carousel
+ * @param {HTMLElement} block - The carousel block element
+ */
+function stopAutoplay(block) {
+  if (block.autoplayInterval) {
+    clearInterval(block.autoplayInterval);
+    block.autoplayInterval = null;
+  }
+}
+
+/**
+ * Reset autoplay timer (called after manual navigation)
+ * @param {HTMLElement} block - The carousel block element
+ */
+function resetAutoplay(block) {
+  stopAutoplay(block);
+  startAutoplay(block);
+}
+
 function bindEvents(block) {
   const slideIndicators = block.querySelector('.carousel-hero-slide-indicators');
   if (!slideIndicators) return;
 
+  // Indicator button clicks
   slideIndicators.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (e) => {
       const slideIndicator = e.currentTarget.parentElement;
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+      resetAutoplay(block); // Reset timer after manual navigation
     });
   });
 
+  // Previous/Next button clicks
   block.querySelector('.slide-prev').addEventListener('click', () => {
     showSlide(block, parseInt(block.dataset.activeSlide, 10) - 1);
+    resetAutoplay(block); // Reset timer after manual navigation
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
     showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
+    resetAutoplay(block); // Reset timer after manual navigation
   });
 
+  // Pause autoplay on hover (like still.de)
+  block.addEventListener('mouseenter', () => {
+    stopAutoplay(block);
+  });
+
+  block.addEventListener('mouseleave', () => {
+    startAutoplay(block);
+  });
+
+  // Also pause on focus for accessibility
+  block.addEventListener('focusin', () => {
+    stopAutoplay(block);
+  });
+
+  block.addEventListener('focusout', (e) => {
+    // Only restart if focus is leaving the carousel entirely
+    if (!block.contains(e.relatedTarget)) {
+      startAutoplay(block);
+    }
+  });
+
+  // Observe slides for active state updates
   const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) updateActiveSlide(entry.target);
@@ -69,6 +131,9 @@ function bindEvents(block) {
   block.querySelectorAll('.carousel-hero-slide').forEach((slide) => {
     slideObserver.observe(slide);
   });
+
+  // Start autoplay
+  startAutoplay(block);
 }
 
 function createSlide(row, slideIndex, carouselId) {

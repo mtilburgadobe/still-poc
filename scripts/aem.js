@@ -691,6 +691,42 @@ async function loadSections(element) {
   }
 }
 
+/**
+ * Fetches placeholders from the placeholders.json file.
+ * @param {string} [prefix] Location of placeholders, defaults to 'default'
+ * @returns {Object} Key-value pairs of placeholders
+ */
+async function fetchPlaceholders(prefix = 'default') {
+  window.placeholders = window.placeholders || {};
+  if (!window.placeholders[prefix]) {
+    window.placeholders[prefix] = new Promise((resolve) => {
+      fetch(`${prefix === 'default' ? '' : prefix}/placeholders.json`)
+        .then((resp) => {
+          if (resp.ok) {
+            return resp.json();
+          }
+          return {};
+        })
+        .then((json) => {
+          const placeholders = {};
+          if (json.data) {
+            json.data.forEach((row) => {
+              placeholders[toCamelCase(row.Key)] = row.Text;
+            });
+          }
+          window.placeholders[prefix] = placeholders;
+          resolve(window.placeholders[prefix]);
+        })
+        .catch(() => {
+          // Could not fetch placeholders
+          window.placeholders[prefix] = {};
+          resolve(window.placeholders[prefix]);
+        });
+    });
+  }
+  return window.placeholders[prefix];
+}
+
 init();
 
 export {
@@ -702,6 +738,7 @@ export {
   decorateIcons,
   decorateSections,
   decorateTemplateAndTheme,
+  fetchPlaceholders,
   getMetadata,
   loadBlock,
   loadCSS,

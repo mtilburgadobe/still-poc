@@ -14,6 +14,22 @@ import {
 } from './aem.js';
 
 /**
+ * Moves all the attributes from a given elmement to another given element.
+ * Used for AEM instrumentation/authoring.
+ * @param {Element} from the element to copy attributes from
+ * @param {Element} to the element to copy attributes to
+ */
+export function moveInstrumentation(from, to) {
+  if (from && to) {
+    [...from.attributes]
+      .filter((attr) => attr.name.startsWith('data-aue-') || attr.name.startsWith('data-richtext-'))
+      .forEach((attr) => {
+        to.setAttribute(attr.name, attr.value);
+      });
+  }
+}
+
+/**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
