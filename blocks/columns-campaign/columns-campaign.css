@@ -1,0 +1,124 @@
+/*
+ * Columns Campaign Block - STILL Design Style
+ * Two-column layout with image and content (heading, text, CTA)
+ */
+
+.columns-campaign {
+  padding: 0;
+}
+
+.columns-campaign > div {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white, #fff);
+  overflow: hidden;
+}
+
+/* Image Column */
+.columns-campaign > div > div {
+  order: 1;
+}
+
+.columns-campaign > div > .columns-campaign-img-col {
+  order: 0;
+  line-height: 0;
+}
+
+.columns-campaign img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Content Column */
+.columns-campaign > div > div:not(.columns-campaign-img-col) {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Heading - STILL uses bold dark text */
+.columns-campaign h3 {
+  margin: 0;
+  font-size: var(--heading-font-size-l, 20px);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text-primary, #302e2c);
+}
+
+/* Description Text */
+.columns-campaign p {
+  margin: 0;
+  font-size: var(--body-font-size-m, 16px);
+  line-height: 1.5;
+  color: var(--color-text-secondary, #545454);
+}
+
+/* CTA Button - STILL Orange Style */
+.columns-campaign a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--color-orange, #f96915);
+  color: var(--color-white, #fff);
+  font-weight: 700;
+  font-size: var(--body-font-size-m, 16px);
+  text-decoration: none;
+  border-radius: var(--border-radius-s, 2.5px);
+  transition: background-color 0.15s ease;
+  width: fit-content;
+  margin-top: 8px;
+}
+
+.columns-campaign a:hover {
+  background-color: var(--color-orange-dark, #e55a0a);
+  text-decoration: none;
+}
+
+/* Desktop Layout */
+@media (width >= 900px) {
+  .columns-campaign > div {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .columns-campaign > div > div {
+    flex: 1;
+    order: unset;
+  }
+
+  .columns-campaign > div > div:not(.columns-campaign-img-col) {
+    padding: 40px;
+  }
+
+  .columns-campaign > div > .columns-campaign-img-col {
+    flex: 1.2;
+  }
+
+  .columns-campaign img {
+    height: 100%;
+    min-height: 300px;
+  }
+}
+
+/* Reverse layout variant (content on left, image on right) */
+.columns-campaign.reverse > div {
+  flex-direction: column;
+}
+
+@media (width >= 900px) {
+  .columns-campaign.reverse > div {
+    flex-direction: row-reverse;
+  }
+}
+
+/* Full-bleed variant (no container constraints) */
+.columns-campaign.full-bleed {
+  max-width: none;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+}

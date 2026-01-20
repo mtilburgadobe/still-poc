@@ -1,0 +1,135 @@
+/*
+ * Cards Teaser Block - STILL Design Style
+ * Grid of teaser cards with images, titles, and descriptions
+ */
+
+.cards-teaser {
+  padding: 0;
+}
+
+.cards-teaser > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-gap: 24px;
+}
+
+.cards-teaser > ul > li {
+  background-color: var(--color-white, #fff);
+  border: none;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cards-teaser > ul > li:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Link Wrapper */
+.cards-teaser > ul > li > a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Card Image */
+.cards-teaser .cards-teaser-card-image {
+  line-height: 0;
+  overflow: hidden;
+  order: 2;
+}
+
+.cards-teaser > ul > li img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.cards-teaser > ul > li:hover img {
+  transform: scale(1.02);
+}
+
+/* Card Body - STILL Style */
+.cards-teaser .cards-teaser-card-body {
+  padding: 20px;
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Card Title - STILL uses dark gray for titles */
+.cards-teaser .cards-teaser-card-body strong,
+.cards-teaser .cards-teaser-card-body h3 {
+  display: block;
+  font-size: var(--heading-font-size-l, 20px);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text-primary, #302e2c);
+  margin: 0;
+}
+
+/* Some cards have orange titles for emphasis */
+.cards-teaser > ul > li:nth-child(2) .cards-teaser-card-body strong {
+  color: var(--color-orange, #f96915);
+}
+
+/* Card Description */
+.cards-teaser .cards-teaser-card-body p {
+  margin: 0;
+  font-size: var(--body-font-size-m, 16px);
+  line-height: 1.5;
+  color: var(--color-text-secondary, #545454);
+}
+
+/* Card Link Text (hidden or styled) */
+.cards-teaser .cards-teaser-card-body a {
+  color: var(--color-orange, #f96915);
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.cards-teaser .cards-teaser-card-body a:hover {
+  text-decoration: none;
+  color: var(--color-orange-dark, #e55a0a);
+}
+
+/* Responsive Adjustments */
+@media (width >= 600px) {
+  .cards-teaser > ul {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 24px;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-teaser > ul {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 32px;
+  }
+
+  .cards-teaser .cards-teaser-card-body {
+    padding: 24px;
+  }
+}
+
+/* Two-column variant for larger cards */
+.cards-teaser.two-columns > ul {
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+@media (width >= 900px) {
+  .cards-teaser.two-columns > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

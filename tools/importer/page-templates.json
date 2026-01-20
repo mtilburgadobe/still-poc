@@ -1,0 +1,23 @@
+{
+  "templates": [
+    {
+      "name": "still-homepage",
+      "urls": ["https://www.still.de/"],
+      "description": "STILL homepage template with hero carousel, category cards, campaign teaser, news section, and contact area",
+      "blocks": [
+        {
+          "name": "carousel-hero",
+          "instances": [".content-stage-slideshow"]
+        },
+        {
+          "name": "cards-teaser",
+          "instances": [".content-category-teaser"]
+        },
+        {
+          "name": "columns-campaign",
+          "instances": [".content-campaign-teaser"]
+        }
+      ]
+    }
+  ]
+}

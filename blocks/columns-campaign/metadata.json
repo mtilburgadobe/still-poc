@@ -1,0 +1,41 @@
+{
+  "variantName": "columns-campaign",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-01-20T08:10:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.still.de/",
+    "originPage": "STILL Homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "campaign-teaser",
+    "imagePattern": "left-image"
+  },
+  "contentPattern": {
+    "structure": "image + heading + text + CTA",
+    "buttonCount": 1,
+    "imageCount": 1,
+    "columnCount": 2
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "campaign promotions",
+      "featured content sections",
+      "call-to-action blocks",
+      "product highlights"
+    ],
+    "notSuitableFor": [
+      "multi-column comparisons",
+      "text-only layouts",
+      "grid-based content"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/content/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-01-20T08:10:00.000Z"
+  }
+}

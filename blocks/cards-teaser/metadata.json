@@ -1,0 +1,41 @@
+{
+  "variantName": "cards-teaser",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-01-20T08:10:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.still.de/",
+    "originPage": "STILL Homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "normal",
+    "purpose": "category-teaser",
+    "imagePattern": "top-image"
+  },
+  "contentPattern": {
+    "structure": "image + heading + description + link",
+    "buttonCount": 0,
+    "imageCount": 1,
+    "cardCount": "variable"
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "product category listings",
+      "service overviews",
+      "news article teasers",
+      "feature highlights"
+    ],
+    "notSuitableFor": [
+      "detailed product pages",
+      "text-heavy content",
+      "single item highlights"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/content/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-01-20T08:10:00.000Z"
+  }
+}
